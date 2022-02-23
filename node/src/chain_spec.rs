@@ -69,7 +69,8 @@ where
 /// Helper function to generate stash, controller and session key from seed
 pub fn authority_keys_from_seed(
 	seed: &str,
-) -> (AccountId, BabeId, GrandpaId, ImOnlineId, BeefyId, OctopusId) {
+	stash_amount: Balance
+) -> (AccountId, BabeId, GrandpaId, ImOnlineId, BeefyId, OctopusId, Balance) {
 	(
 		get_account_id_from_seed::<sr25519::Public>(seed),
 		get_from_seed::<BabeId>(seed),
@@ -77,6 +78,7 @@ pub fn authority_keys_from_seed(
 		get_from_seed::<ImOnlineId>(seed),
 		get_from_seed::<BeefyId>(seed),
 		get_from_seed::<OctopusId>(seed),
+		stash_amount,
 	)
 }
 
@@ -93,7 +95,7 @@ pub fn development_config() -> Result<ChainSpec, String> {
 			genesis(
 				wasm_binary,
 				// Initial PoA authorities
-				vec![authority_keys_from_seed("Alice")],
+				vec![authority_keys_from_seed("Alice", 100 * OCTS)],
 				// Sudo account
 				get_account_id_from_seed::<sr25519::Public>("Alice"),
 				// Pre-funded accounts
@@ -152,7 +154,10 @@ pub fn local_testnet_config() -> Result<ChainSpec, String> {
 			genesis(
 				wasm_binary,
 				// Initial PoA authorities
-				vec![authority_keys_from_seed("Alice"), authority_keys_from_seed("Bob")],
+				vec![
+					authority_keys_from_seed("Alice", 100 * OCTS), 
+					authority_keys_from_seed("Bob", 100 * OCTS)
+				],
 				// Sudo account
 				// 5Fk6QsYKvDXxdXumGdHnNQ7V7FziREy6qn8WjDLEWF8WsbU3
 				hex!["a2bf32e50edd79c181888da41c80c67c191e9e6b29d3f2efb102ca0e2b53c558"].into(),
