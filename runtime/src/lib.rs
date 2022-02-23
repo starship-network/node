@@ -128,6 +128,24 @@ pub const VERSION: RuntimeVersion = RuntimeVersion {
 	transaction_version: 1,
 };
 
+/// The native token, uses 18 decimals of precision.
+pub mod currency {
+	use super::Balance;
+
+	pub const OCTS: Balance = 1_000_000_000_000_000_000;
+
+	pub const UNITS: Balance = 1_000_000_000_000_000_000;
+	pub const DOLLARS: Balance = UNITS;
+	pub const CENTS: Balance = DOLLARS / 100;
+	pub const MILLICENTS: Balance = CENTS / 1_000;
+
+	pub const EXISTENSIAL_DEPOSIT: Balance = CENTS;
+	pub const BYTE_FEE: Balance = 10 * MILLICENTS;
+
+	pub const fn deposit(items: u32, bytes: u32) -> Balance {
+		(items as Balance) * CENTS + (bytes as Balance) * BYTE_FEE
+	}
+}
 pub const MILLICENTS: Balance = 10_000_000_000_000;
 pub const CENTS: Balance = 1_000 * MILLICENTS; // assume this is worth about a cent.
 pub const DOLLARS: Balance = 100 * CENTS;
@@ -927,6 +945,8 @@ impl_runtime_apis! {
 			pallet_mmr::verify_leaf_proof::<MmrHashing, _>(root, node, proof)
 		}
 	}
+
+
 
 	#[cfg(feature = "runtime-benchmarks")]
 	impl frame_benchmarking::Benchmark<Block> for Runtime {
