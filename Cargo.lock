@@ -122,6 +122,7 @@ dependencies = [
  "beefy-primitives",
  "frame-benchmarking",
  "frame-benchmarking-cli",
+ "hex-literal",
  "jsonrpc-core",
  "pallet-im-online",
  "pallet-mmr-rpc",
