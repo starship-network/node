@@ -10,8 +10,11 @@ fi
 SECRET="panda dose welcome ostrich brief pull lawn table arrest worth ranch faculty"
 
 generate_account_id() {
-	# echo "subkey inspect ${3:-} ${4:-} '$SECRET//$1//$2'"
-	subkey inspect ${3:-} ${4:-} "$SECRET//$1//$2" | grep "Account ID" | awk '{ print $3 }'
+	if [[ $2 == 'beefy' ]]; then
+		subkey inspect ${3:-} ${4:-} "$SECRET//$1//$2" | grep "Public key (hex)" | awk '{ print $4 }'
+	else
+		subkey inspect ${3:-} ${4:-} "$SECRET//$1//$2" | grep "Account ID" | awk '{ print $3 }'
+	fi
 }
 
 generate_address() {
@@ -48,11 +51,11 @@ AUTHORITIES=""
 for i in $(seq 1 $V_NUM); do
 	AUTHORITIES+="(\n"
 	AUTHORITIES+="$(generate_address_and_account_id $i stash)\n"
-	AUTHORITIES+="$(generate_address_and_account_id $i controller)\n"
-	AUTHORITIES+="$(generate_address_and_account_id $i grandpa '--scheme ed25519' true)\n"
 	AUTHORITIES+="$(generate_address_and_account_id $i babe '--scheme sr25519' true)\n"
+	AUTHORITIES+="$(generate_address_and_account_id $i grandpa '--scheme ed25519' true)\n"
 	AUTHORITIES+="$(generate_address_and_account_id $i im_online '--scheme sr25519' true)\n"
-	AUTHORITIES+="$(generate_address_and_account_id $i authority_discovery '--scheme sr25519' true)\n"
+	AUTHORITIES+="$(generate_address_and_account_id $i beefy '--scheme ecdsa' true)\n"
+	AUTHORITIES+="$(generate_address_and_account_id $i octopus '--scheme sr25519' true)\n"
 	AUTHORITIES+="),\n"
 done
 
