@@ -1,4 +1,4 @@
-use appchain_barnacle_runtime::{
+use starship_runtime::{
 	currency::{OCTS, UNITS as STARSHIP},
 	opaque::Block, opaque::SessionKeys, AccountId, BabeConfig, Balance, BalancesConfig,
 	GenesisConfig, GrandpaConfig, ImOnlineConfig, OctopusAppchainConfig, OctopusLposConfig,
@@ -320,7 +320,7 @@ pub fn quark_config() -> Result<ChainSpec, String> {
 		// Telemetry
 		None,
 		// Protocol ID
-		Some("starship-local-testnet"),
+		Some("quark-starship"),
 		// Properties
 		Some(properties),
 		// Extensions
@@ -367,7 +367,7 @@ fn genesis(
 		},
 		babe: BabeConfig {
 			authorities: vec![],
-			epoch_config: Some(appchain_barnacle_runtime::BABE_GENESIS_EPOCH_CONFIG),
+			epoch_config: Some(starship_runtime::BABE_GENESIS_EPOCH_CONFIG),
 		},
 		im_online: ImOnlineConfig { keys: vec![] },
 		grandpa: GrandpaConfig { authorities: vec![] },

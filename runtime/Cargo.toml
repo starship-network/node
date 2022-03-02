@@ -1,3 +1,14 @@
+[package]
+authors = ['Starships Network <hi@starship.network>']
+description = 'A fresh FRAME-based Substrate runtime, ready for hacking.'
+edition = '2021'
+homepage = 'https://starship.network/'
+license = 'Apache-2.0'
+name = 'starship-runtime'
+publish = false
+repository = 'https://github.com/starship-network/node/'
+version = '0.9.13'
+
 [features]
 default = ['std']
 runtime-benchmarks = [
@@ -57,16 +68,6 @@ std = [
 [build-dependencies]
 substrate-wasm-builder = { git = 'https://github.com/paritytech/substrate.git', branch = 'polkadot-v0.9.13' }
 
-[package]
-authors = ['Octopus Network <hi@oct.network>']
-description = 'A fresh FRAME-based Substrate runtime, ready for hacking.'
-edition = '2021'
-homepage = 'https://oct.network/'
-license = 'Apache-2.0'
-name = 'appchain-barnacle-runtime'
-publish = false
-repository = 'https://github.com/octopus-network/barnacle/'
-version = '0.9.13'
 [package.metadata.docs.rs]
 targets = ['x86_64-unknown-linux-gnu']
 
